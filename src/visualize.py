@@ -5,7 +5,11 @@ from PIL import Image
 import pandas as pd
 
 
-def visualize_top_boxes(image_root, epoch,  annotations, num_images=10, save_directory='.'):
+def visualize_top_boxes(image_root, epoch, annotations, num_images=10, save_directory='.'):
+    # Create the save directory if it does not exist
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+
     # Group annotations by image
     annotations_by_image = {}
     for ann in annotations:
@@ -45,8 +49,7 @@ def visualize_top_boxes(image_root, epoch,  annotations, num_images=10, save_dir
             y_max = y + h
 
             # Create a Rectangle patch with yellow color
-            rect = patches.Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, linewidth=1, edgecolor='yellow',
-                                     facecolor='none')
+            rect = patches.Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, linewidth=1, edgecolor='yellow', facecolor='none')
 
             # Add the patch to the Axes
             ax.add_patch(rect)
@@ -61,7 +64,7 @@ def visualize_top_boxes(image_root, epoch,  annotations, num_images=10, save_dir
         plt.title(f"Image {idx + 1}/{num_images}")
 
         # Save the plot
-        save_path = os.path.join(save_directory, os.path.splitext(image_name)[0] + '_preds_' + epoch + '.png')
+        save_path = os.path.join(save_directory, f"{os.path.splitext(image_name)[0]}_preds_{epoch}.png")
         plt.savefig(save_path, bbox_inches='tight', dpi=300)
         plt.close()  # Close the plot to free memory
 def plot_training_losses(csv_files, labels, title='Training Losses', xlabel='Epoch', ylabel='Loss'):
