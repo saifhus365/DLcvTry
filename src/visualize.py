@@ -101,7 +101,7 @@ def plot_training_losses(csv_files, labels, title='Training Losses', xlabel='Epo
 
     plt.savefig('Images/TrainLosses.png', dpi=300)
 
-
+'''
 import os
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -161,4 +161,4 @@ output_dir = 'Images'
 os.makedirs(output_dir, exist_ok=True)
 output_path = os.path.join(output_dir, 'mAP_values.png')
 plt.savefig(output_path)
-plt.close()
+plt.close()'''
