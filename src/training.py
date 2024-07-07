@@ -1,6 +1,6 @@
 import torch
 import tqdm
-from visualize import visualize_top_boxes
+from visualize import visualize_top_boxes, visualize_single_image
 def train_one_epoch(model, data_loader, optimizer, device, num_classes):
     model.train()
 
@@ -57,7 +57,7 @@ def train_and_evaluate_model(model, train_loader,val_loader, optimizer, num_epoc
 
         if scheduler:
             scheduler.step()
-        visualize_top_boxes('Images', epoch, '/kaggle/input/construction-industry-steel-ordering-lists-cisol/cisol_TD-TSR/TD-TSR/images/train/201205_B2224_a_Bewehrungsplan_Decke_ueber_Untergeschoss_BA2_2___Teil_2___untere_Lage_und_obere_Lage_Liste_page_1_an_preds.png')
+        visualize_single_image('/kaggle/input/construction-industry-steel-ordering-lists-cisol/cisol_TD-TSR/TD-TSR/images/train', epoch,result, '201205_B2224_a_Bewehrungsplan_Decke_ueber_Untergeschoss_BA2_2___Teil_2___untere_Lage_und_obere_Lage_Liste_page_1_an_preds.png')
 
     return train_l, test_l
 
