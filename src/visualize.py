@@ -4,7 +4,66 @@ import matplotlib.patches as patches
 from PIL import Image
 import pandas as pd
 
+def visualize_single_image(image_root, epoch, annotations, chosen_image_name, save_directory='.'):
+    # Create the save directory if it does not exist
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
 
+    # Group annotations by image
+    annotations_by_image = {}
+    for ann in annotations:
+        if ann['file_name'] not in annotations_by_image:
+            annotations_by_image[ann['file_name']] = []
+        annotations_by_image[ann['file_name']].append(ann)
+
+    # Check if the chosen image has annotations
+    if chosen_image_name not in annotations_by_image:
+        raise ValueError(f"No annotations found for image {chosen_image_name}")
+
+    # Construct full image path
+    image_path = os.path.join(image_root, chosen_image_name)
+
+    # Open the image
+    img = Image.open(image_path)
+
+    # Create figure and axes
+    fig, ax = plt.subplots(1)
+
+    # Display the image
+    ax.imshow(img)
+
+    # Sort annotations by score
+    annotations_sorted = sorted(annotations_by_image[chosen_image_name], key=lambda x: x['score'], reverse=True)
+
+    # Add bounding boxes for top 10 scores
+    for ann in annotations_sorted[:10]:
+        bbox = ann['bbox']
+        x, y, w, h = bbox
+
+        # Convert x, y, w, h to x_min, y_min, x_max, y_max
+        x_min = x
+        y_min = y
+        x_max = x + w
+        y_max = y + h
+
+        # Create a Rectangle patch with yellow color
+        rect = patches.Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, linewidth=1, edgecolor='yellow', facecolor='none')
+
+        # Add the patch to the Axes
+        ax.add_patch(rect)
+
+        # Add label in red color
+        category_id = ann['category_id']
+        score = ann['score']
+        ax.text(x_min, y_min - 5, f'Category: {category_id}, Score: {score:.2f}', fontsize=8, color='red')
+
+    # Show plot for the current image
+    plt.axis('off')  # Turn off axis
+
+    # Save the plot
+    plt.savefig( bbox_inches='tight', dpi=300)
+    plt.savefig('Image' + epoch + '.png', bbox_inches='tight', dpi=300)
+    plt.close()
 def visualize_top_boxes(image_root, epoch, annotations, num_images=10, save_directory='.'):
     # Create the save directory if it does not exist
     if not os.path.exists(save_directory):
@@ -65,7 +124,7 @@ def visualize_top_boxes(image_root, epoch, annotations, num_images=10, save_dire
 
         # Save the plot
         #save_path = os.path.join(save_directory, f"{os.path.splitext(image_name)[0]}_preds_{epoch}.png")
-        plt.savefig(bbox_inches='tight', dpi=300)
+        plt.savefig('Image'+epoch+'.png', bbox_inches='tight', dpi=300)
         plt.close()  # Close the plot to free memory
 def plot_training_losses(csv_files, labels, title='Training Losses', xlabel='Epoch', ylabel='Loss'):
     """
