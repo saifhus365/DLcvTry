@@ -1,5 +1,6 @@
 import torch
 import tqdm
+from visualize import visualize_top_boxes
 def train_one_epoch(model, data_loader, optimizer, device, num_classes):
     model.train()
 
@@ -56,6 +57,7 @@ def train_and_evaluate_model(model, train_loader,val_loader, optimizer, num_epoc
 
         if scheduler:
             scheduler.step()
+        visualize_top_boxes('Images', epoch, result)
 
     return train_l, test_l
 
