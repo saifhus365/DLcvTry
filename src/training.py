@@ -57,7 +57,7 @@ def train_and_evaluate_model(model, train_loader,val_loader, optimizer, num_epoc
 
         if scheduler:
             scheduler.step()
-        visualize_top_boxes('src/Images', epoch, result)
+        visualize_top_boxes('Images', epoch, result)
 
     return train_l, test_l
 
