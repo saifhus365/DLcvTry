@@ -17,8 +17,6 @@ def visualize_single_image(image_root, epoch, annotations, chosen_image_name, sa
         annotations_by_image[ann['file_name']].append(ann)
     chosen_image_name = annotations_by_image[chosen_image_name]
     # Check if the chosen image has annotations
-    if chosen_image_name not in annotations_by_image:
-        raise ValueError(f"No annotations found for image {chosen_image_name}")
 
     # Construct full image path
     image_path = os.path.join(image_root, chosen_image_name)
