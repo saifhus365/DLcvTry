@@ -34,7 +34,7 @@ def visualize_single_image(image_root, epoch, annotations, chosen_image_name, sa
     annotations_sorted = sorted(annotations_by_image[chosen_image_name], key=lambda x: x['score'], reverse=True)
 
     # Add bounding boxes for top 10 scores
-    for ann in annotations_sorted[:10]:
+    for ann in annotations_sorted[:5]:
         bbox = ann['bbox']
         x, y, w, h = bbox
 
