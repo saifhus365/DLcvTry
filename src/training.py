@@ -57,7 +57,7 @@ def train_and_evaluate_model(model, train_loader,val_loader, optimizer, num_epoc
 
         if scheduler:
             scheduler.step()
-        visualize_single_image('/kaggle/input/construction-industry-steel-ordering-lists-cisol/cisol_TD-TSR/TD-TSR/images/test', epoch,result, '11G30_IBA_ET__OB__316_TWB_5_01_Stahlliste_page_3_an.png')
+        visualize_single_image('/kaggle/input/construction-industry-steel-ordering-lists-cisol/cisol_TD-TSR/TD-TSR/images/train', epoch,result, '11G30_IBA_ET__OB__316_TWB_5_01_Stahlliste_page_3_an.png')
 
     return train_l, test_l
 
