@@ -59,7 +59,7 @@ def visualize_single_image(image_root, epoch, annotations, chosen_image_name, sa
     plt.axis('off')  # Turn off axis
 
     # Save the plot
-    plt.savefig('Image' + epoch + '.png', bbox_inches='tight', dpi=300)
+    plt.savefig('Image' + str(epoch) + '.png', bbox_inches='tight', dpi=300)
     plt.close()
 def visualize_top_boxes(image_root, epoch, annotations, num_images=10, save_directory='.'):
     # Create the save directory if it does not exist
