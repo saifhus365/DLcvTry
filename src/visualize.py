@@ -53,13 +53,12 @@ def visualize_single_image(image_root, epoch, annotations, chosen_image_name, sa
         # Add label in red color
         category_id = ann['category_id']
         score = ann['score']
-        ax.text(x_min, y_min - 5, f'Category: {category_id}, Score: {score:.2f}', fontsize=8, color='red')
+        #ax.text(x_min, y_min - 5, f'Category: {category_id}, Score: {score:.2f}', fontsize=8, color='red')
 
     # Show plot for the current image
     plt.axis('off')  # Turn off axis
 
     # Save the plot
-    plt.savefig( bbox_inches='tight', dpi=300)
     plt.savefig('Image' + epoch + '.png', bbox_inches='tight', dpi=300)
     plt.close()
 def visualize_top_boxes(image_root, epoch, annotations, num_images=10, save_directory='.'):
